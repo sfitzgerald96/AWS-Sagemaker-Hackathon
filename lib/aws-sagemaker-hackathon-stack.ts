@@ -1,4 +1,6 @@
 import * as cdk from '@aws-cdk/core';
+import * as sagemaker from '@aws-cdk/aws-sagemaker';
+
 // import * as sqs from '@aws-cdk/aws-sqs';
 
 export class AwsSagemakerHackathonStack extends cdk.Stack {

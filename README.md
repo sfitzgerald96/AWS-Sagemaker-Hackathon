@@ -1,14 +1,15 @@
-# Welcome to your CDK TypeScript project!
+# AWS Sagemaker Hackathon
 
-This is a blank project for TypeScript development with CDK.
-
+## Getting Started
+Run this command to get your dev environment setup: `./scripts/dev-env-setup.sh`
+The above script will install python if it's not already installed. It will then install all of the needed python packages to get started with developing our AWS Sagemaker model!
+# CDK
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 ## Useful commands
 
- * `npm run build`   compile typescript to js
- * `npm run watch`   watch for changes and compile
- * `npm run test`    perform the jest unit tests
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk synth`       emits the synthesized CloudFormation template
+ * `yarn build`           compile typescript to js
+ * `yarn watch`           watch for changes and compile
+ * `yarn cdk deploy`      deploy this stack to your default AWS account/region
+ * `yarn cdk diff`        compare deployed stack with current state
+ * `yarn cdk synth`       emits the synthesized CloudFormation template
