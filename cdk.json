@@ -32,6 +32,11 @@
     "@aws-cdk/aws-cloudfront:defaultSecurityPolicyTLSv1.2_2021": true,
     "notebooks": [
       { "instanceName":"snhackathon-sfitzgerald" }
-    ]
+    ],
+    "s3BucketName": "sagemaker-hackathon-sfitzgerald96",
+    "gitConfig": {
+      "repositoryUrl": "https://github.com/sfitzgerald96/AWS-Sagemaker-Hackathon.git",
+      "branch": "main"
+    }
   }
 }

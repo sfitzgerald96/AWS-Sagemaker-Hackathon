@@ -1,13 +1,42 @@
 # AWS Sagemaker Hackathon
-
+This is a CDK repository to help you get started with AWS Sagemaker.
+The boilerplate code is inspired by this AWS workshop: https://sagemaker-workshop.com/introduction/notebook.html
 ## Getting Started
-Run this command to get your dev environment setup: `./scripts/dev-env-setup.sh`
-The above script will install python if it's not already installed. It will then install all of the needed python packages to get started with developing our AWS Sagemaker model!
-# CDK
+- Edit the `notebooks`, `s3BucketName`, and `gitConfig` attributes in the `cdk.json` file. The schema for these is as follows:
+```typescript
+interface CdkJsonFile {
+  notebooks: Array<Notebook>;
+  s3BucketName: string;
+  gitConfig: GitConfig;
+}]
+
+interface Notebook {
+  instanceName: string;
+  instanceType?: string; // Defaults to 'ml.t3.medium' Pricing Details: https://aws.amazon.com/sagemaker/pricing/
+}
+
+interface GitConfig {
+  repositoryUrl: string;
+  branch: string;
+}
+```
+- Once you've added your config to the `cdk.json`, run the command `./scripts/cdk-deploy-to.sh aws-acount-number aws-region` to deploy the CDK stack. It will deploy the following into your specified AWS account and region:
+  - S3 bucket to store SageMaker artifacts and/or source data
+  - Jupyter notebooks that were declared in `cdk.json`
+  - Links a git repository to the specified jupyter notebooks (only public git repos are supported at this time)
+
+## Resources
+- Jupyter Notebook Samples: https://github.com/ibm-et/jupyter-samples
+- How to use git in Jupyter: https://docs.aws.amazon.com/sagemaker/latest/dg/git-nbi-use.html
+- MatplotLib (API Docs) https://matplotlib.org/stable/api/index.html
+- Pandas (API Docs) https://pandas.pydata.org/docs/reference/index.html
+- Pytorch (API Docs) https://pytorch.org/docs/stable/index.html
+- Numpy (API Docs) https://numpy.org/doc/stable/docs/howto_document.html
+
+## CDK
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
-## Useful commands
-
+### Useful commands
  * `yarn build`           compile typescript to js
  * `yarn watch`           watch for changes and compile
  * `yarn cdk deploy`      deploy this stack to your default AWS account/region

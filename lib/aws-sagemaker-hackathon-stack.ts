@@ -8,7 +8,7 @@ export class AwsSagemakerHackathonStack extends cdk.Stack {
     super(scope, id, props);
 
     const bucket = new s3.Bucket(this, 'SagemakerArtifacts', {
-      bucketName: 'sagemaker-hackathon-sf96' //TODO: Edit Bucket Name
+      bucketName: this.node.tryGetContext('s3BucketName')
     });
 
     const role = new iam.Role(this, 'JupyterNotebookRole', {
@@ -28,18 +28,15 @@ export class AwsSagemakerHackathonStack extends cdk.Stack {
     }))
 
     const gitRepo = new sagemaker.CfnCodeRepository(this, 'SageMakerCodeRepository', {
-      gitConfig: {
-        repositoryUrl: 'https://github.com/sfitzgerald96/AWS-Sagemaker-Hackathon.git',
-        branch: 'main',
-      },
-    });
+      gitConfig: this.node.tryGetContext('gitConfig')
+    })
 
     const notebooks = this.node.tryGetContext('notebooks')
     // EC2 ML instance pricing: https://aws.amazon.com/sagemaker/pricing/
     for (let notebook of notebooks) {
       new sagemaker.CfnNotebookInstance(this, `Notebook-${notebook.instanceName}`, {
         notebookInstanceName: notebook.instanceName,
-        instanceType: notebook.instanceType || 'ml.t3.medium', // EC2 ML instance pricing: https://aws.amazon.com/sagemaker/pricing/
+        instanceType: notebook.instanceType || 'ml.t3.medium',
         roleArn: role.roleArn,
         defaultCodeRepository: gitRepo.attrCodeRepositoryName
       })
