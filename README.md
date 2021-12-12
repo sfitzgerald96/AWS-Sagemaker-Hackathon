@@ -20,10 +20,15 @@ interface GitConfig {
   branch: string;
 }
 ```
-- Once you've added your config to the `cdk.json`, run the command `./scripts/cdk-deploy-to.sh aws-acount-number aws-region` to deploy the CDK stack. It will deploy the following into your specified AWS account and region:
+- After you've added your config to the `cdk.json`, run
+  - `yarn install`
+  - `./scripts/cdk-deploy-to.sh <aws-acount-number> <aws-region>`
+- Once Cloudformation finishes, you'll have the following recources in your account:
   - S3 bucket to store SageMaker artifacts and/or source data
   - Jupyter notebooks that were declared in `cdk.json`
-  - Links a git repository to the specified jupyter notebooks (only public git repos are supported at this time)
+  - Links a git repository to the git repo defined in `cdk.json` (only public git repos are supported at this time)
+- When you're ready to cleanup these resources, run:
+  - `yarn cdk destroy`
 
 ## Resources
 - Jupyter Notebook Samples: https://github.com/ibm-et/jupyter-samples
