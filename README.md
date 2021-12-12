@@ -28,10 +28,6 @@ interface GitConfig {
 ## Resources
 - Jupyter Notebook Samples: https://github.com/ibm-et/jupyter-samples
 - How to use git in Jupyter: https://docs.aws.amazon.com/sagemaker/latest/dg/git-nbi-use.html
-- MatplotLib (API Docs) https://matplotlib.org/stable/api/index.html
-- Pandas (API Docs) https://pandas.pydata.org/docs/reference/index.html
-- Pytorch (API Docs) https://pytorch.org/docs/stable/index.html
-- Numpy (API Docs) https://numpy.org/doc/stable/docs/howto_document.html
 
 ## CDK
 The `cdk.json` file tells the CDK Toolkit how to execute your app.
