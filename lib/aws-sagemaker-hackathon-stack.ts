@@ -27,13 +27,21 @@ export class AwsSagemakerHackathonStack extends cdk.Stack {
       resources: [bucket.bucketArn],
     }))
 
+    const gitRepo = new sagemaker.CfnCodeRepository(this, 'SageMakerCodeRepository', {
+      gitConfig: {
+        repositoryUrl: 'https://github.com/sfitzgerald96/AWS-Sagemaker-Hackathon.git',
+        branch: 'main',
+      },
+    });
+
     const notebooks = this.node.tryGetContext('notebooks')
     // EC2 ML instance pricing: https://aws.amazon.com/sagemaker/pricing/
     for (let notebook of notebooks) {
       new sagemaker.CfnNotebookInstance(this, `Notebook-${notebook.instanceName}`, {
         notebookInstanceName: notebook.instanceName,
         instanceType: notebook.instanceType || 'ml.t3.medium', // EC2 ML instance pricing: https://aws.amazon.com/sagemaker/pricing/
-        roleArn: role.roleArn
+        roleArn: role.roleArn,
+        defaultCodeRepository: gitRepo.attrCodeRepositoryName
       })
     }
   }
