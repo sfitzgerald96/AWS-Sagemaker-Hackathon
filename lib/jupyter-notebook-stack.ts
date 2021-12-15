@@ -3,12 +3,23 @@ import * as sagemaker from '@aws-cdk/aws-sagemaker';
 import * as s3 from '@aws-cdk/aws-s3'
 import * as iam from '@aws-cdk/aws-iam'
 
-export class AwsSagemakerHackathonStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+interface JupyterNotebookProps extends cdk.StackProps {
+  s3BucketName: string
+  gitConfig: sagemaker.CfnCodeRepository.GitConfigProperty
+  notebooks: Array<Notebook>
+}
+
+interface Notebook {
+  instanceName: string
+  instanceType?: string
+}
+
+export class JupyterNotebooksStack extends cdk.Stack {
+  constructor(scope: cdk.Construct, id: string, props: JupyterNotebookProps) {
     super(scope, id, props);
 
     const bucket = new s3.Bucket(this, 'SagemakerArtifacts', {
-      bucketName: this.node.tryGetContext('s3BucketName')
+      bucketName: props.s3BucketName
     });
 
     const role = new iam.Role(this, 'JupyterNotebookRole', {
@@ -28,10 +39,10 @@ export class AwsSagemakerHackathonStack extends cdk.Stack {
     }))
 
     const gitRepo = new sagemaker.CfnCodeRepository(this, 'SageMakerCodeRepository', {
-      gitConfig: this.node.tryGetContext('gitConfig')
+      gitConfig: props.gitConfig
     })
 
-    const notebooks = this.node.tryGetContext('notebooks')
+    const notebooks = props.notebooks
     // EC2 ML instance pricing: https://aws.amazon.com/sagemaker/pricing/
     for (let notebook of notebooks) {
       new sagemaker.CfnNotebookInstance(this, `Notebook-${notebook.instanceName}`, {
