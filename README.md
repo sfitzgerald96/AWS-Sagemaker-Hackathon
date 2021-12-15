@@ -4,6 +4,7 @@ The boilerplate code is inspired by this AWS workshop: https://sagemaker-worksho
 
 ## Deploying Jupyter Notebooks
 - In `bin/aws-sagemaker-hackathon.ts` edit the JupyterNotebooksStack to what you'd like.
+  - **Note:** The secretArn in the GitConfig expects the AWS Secrets Manager secret with username and password where the password is the personal access token for that user.
 - After you've edited the Jupyter Notebook Stack run
   - `yarn install`
   - `./scripts/cdk-deploy-to.sh <aws-acount-number> <aws-region>`

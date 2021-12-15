@@ -11,13 +11,14 @@ const stack = new cdk.Stack(app, 'AwsSagemakerHackathonStack', {
   }
 });
 
-const jupyterNotbebooks = new JupyterNotebooksStack(stack, 'AwsSagemakerHackathonStack', {
+const jupyterNotbebooks = new JupyterNotebooksStack(stack, 'JupyterNotebooksStack', {
   notebooks: [
     { instanceName: "snhackathon-sfitzgerald" }
   ],
   s3BucketName: "sagemaker-hackathon-sfitzgerald96",
   gitConfig: {
     repositoryUrl: "https://github.com/sfitzgerald96/AWS-Sagemaker-Hackathon.git",
-    branch: "main"
+    branch: "main",
+    // secretArn: 'insert secret arn here'
   }
 });
